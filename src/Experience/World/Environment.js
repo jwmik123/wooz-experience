@@ -27,13 +27,22 @@ export default class Environment {
       this.sound.water = new THREE.Audio(this.sound.listener);
       this.sound.water.setBuffer(this.resources.items.ambienceSound);
       this.sound.water.setLoop(true);
-      this.sound.water.setVolume(0.6);
+      this.sound.water.setVolume(0.5);
       this.sound.water.play();
+
       this.sound.intro = new THREE.Audio(this.sound.listener);
       this.sound.intro.setBuffer(this.resources.items.introSound);
       this.sound.intro.setLoop(false);
-      this.sound.intro.setVolume(0.6);
+      this.sound.intro.setVolume(0.5);
       this.sound.intro.play();
+    });
+
+    document.querySelector(".sound").addEventListener("click", () => {
+      if (this.sound.water.isPlaying) {
+        this.sound.water.pause();
+      } else {
+        this.sound.water.play();
+      }
     });
   }
 

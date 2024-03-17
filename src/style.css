@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  overflow: hidden;
+}
+
+.webgl {
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
+}
+
+.intro {
+  position: absolute;
+  backdrop-filter: blur(5px);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+  z-index: 1000;
+  flex-direction: column;
+  gap: 4em;
+}
+
+.intro button {
+  background: #fff;
+  cursor: pointer;
+  color: #4f7960;
+  border: none;
+  font-size: 1.2em;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.intro path {
+  fill: #fff;
+}

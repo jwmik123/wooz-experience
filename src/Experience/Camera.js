@@ -12,6 +12,30 @@ export default class Camera {
 
     this.setInstance();
     this.setControls();
+    this.setMouse();
+  }
+
+  setMouse() {
+    this.mouse = new THREE.Vector2();
+    const raycaster = new THREE.Raycaster();
+
+    const onMouseClick = (event) => {
+      this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(this.mouse, this.instance);
+      const intersects = raycaster.intersectObjects(this.scene.children, true);
+      if (intersects.length > 0) {
+        const object = intersects[0].object;
+
+        console.log(object);
+
+        const newPath = "/" + object.name;
+        history.pushState({ path: newPath }, null, newPath);
+      }
+    };
+
+    // window.addEventListener("click", onMouseClick, false);
   }
 
   setInstance() {
@@ -19,12 +43,18 @@ export default class Camera {
       55,
       this.sizes.width / this.sizes.height,
       0.1,
-      100
+      150
     );
     this.instance.position.set(12, 5, 4);
 
-    const button = document.querySelector(".intro-button");
+    // window.addEventListener("click", () => {
+    //   console.log(this.instance.position);
+    // });
 
+    /**
+     * Intro transition into the experience
+     */
+    const button = document.querySelector(".intro-button");
     button.addEventListener("click", () => {
       const introElement = document.querySelector(".intro");
       introElement.classList.remove("intro");
@@ -44,6 +74,9 @@ export default class Camera {
   setControls() {
     this.controls = new OrbitControls(this.instance, this.canvas);
     this.controls.enableDamping = true;
+    this.controls.screenSpacePanning = true;
+
+    this.controls.zoomSpeed = 0.25;
     this.controls.maxPolarAngle = Math.PI / 2 - 0.1;
   }
 
@@ -54,5 +87,6 @@ export default class Camera {
 
   update() {
     this.controls.update();
+    this.instance.updateMatrixWorld();
   }
 }

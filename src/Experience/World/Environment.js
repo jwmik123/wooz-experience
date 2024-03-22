@@ -15,7 +15,7 @@ export default class Environment {
 
     this.setSunLight();
     this.setEnvironmentMap();
-    this.setSound();
+    // this.setSound();
   }
 
   setSound() {

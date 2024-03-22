@@ -22,6 +22,11 @@ export default [
     path: "textures/dirt/normal.jpg",
   },
   {
+    name: "bakedFinalTexture",
+    type: "texture",
+    path: "assets/bakedFinal.jpg",
+  },
+  {
     name: "foxModel",
     type: "gltfModel",
     path: "models/Fox/glTF/Fox.gltf",
@@ -29,12 +34,7 @@ export default [
   {
     name: "studioModel",
     type: "gltfModel",
-    path: "models/Studio/studio3.gltf",
-  },
-  {
-    name: "coffeCupModel",
-    type: "gltfModel",
-    path: "models/CoffeeCup/cup.gltf",
+    path: "models/Studio/studio4Comp.gltf",
   },
   {
     name: "perlinTexture",

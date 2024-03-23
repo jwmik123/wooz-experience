@@ -28,7 +28,7 @@ export default class Studio {
     this.model = this.resource.scene;
 
     this.model.baked = this.resources.items.bakedFinalTexture;
-    this.model.baked.encoding = THREE.SRGBColorSpace;
+    this.model.baked.colorSpace = THREE.SRGBColorSpace;
     this.model.baked.flipY = false;
 
     this.model.material = new THREE.ShaderMaterial({
@@ -44,6 +44,22 @@ export default class Studio {
         child.material = this.model.material;
       }
     });
+
+    const lampholder = this.model.children.find(
+      (child) => child.name === "lamp1"
+    );
+    const lamps = this.model.children.find(
+      (child) => child.name === "emissionLamp"
+    );
+
+    lamps.material = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      emissive: 0xffffff,
+      emissiveIntensity: 1,
+    });
+
+    console.log(lampholder);
+    console.log(lamps);
 
     this.model.scale.set(1, 1, 1);
     this.model.position.set(0, 0, 0);

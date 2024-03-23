@@ -27,14 +27,9 @@ export default [
     path: "assets/bakedFinal.jpg",
   },
   {
-    name: "foxModel",
-    type: "gltfModel",
-    path: "models/Fox/glTF/Fox.gltf",
-  },
-  {
     name: "studioModel",
     type: "gltfModel",
-    path: "models/Studio/studio4Comp.gltf",
+    path: "models/Studio/studio5Comp.gltf",
   },
   {
     name: "perlinTexture",

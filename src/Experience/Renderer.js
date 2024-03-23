@@ -2,8 +2,7 @@ import * as THREE from "three";
 import Experience from "./Experience.js";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
-import { DotScreenPass } from "three/examples/jsm/postprocessing/DotScreenPass.js";
-
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 export default class Renderer {
   constructor() {
     this.experience = new Experience();
@@ -21,23 +20,41 @@ export default class Renderer {
   setInstance() {
     this.instance = new THREE.WebGLRenderer({
       canvas: this.canvas,
+      alpha: false,
       antialias: true,
     });
     this.instance.toneMapping = THREE.CineonToneMapping;
-    this.instance.toneMappingExposure = 1.75;
-    this.instance.shadowMap.enabled = true;
-    this.instance.shadowMap.type = THREE.PCFSoftShadowMap;
-    this.instance.setClearColor("#211d20");
+    // this.instance.toneMappingExposure = 1.75;
+    // this.instance.shadowMap.enabled = true;
+    // this.instance.shadowMap.type = THREE.PCFSoftShadowMap;
+    this.instance.outputColorSpace = THREE.SRGBColorSpace;
+    this.instance.setClearColor("#010101");
     this.instance.setSize(this.sizes.width, this.sizes.height);
     this.instance.setPixelRatio(this.sizes.pixelRatio);
+
+    this.context = this.instance.getContext();
   }
 
   setPostProcess() {
     this.postProcess = {};
-    // Width and height
-    const boundings = this.canvas.getBoundingClientRect();
-    this.sizes.width = boundings.width;
-    this.sizes.height = boundings.height || window.innerHeight;
+
+    /**
+     * Render pass
+     */
+    this.postProcess.renderPass = new RenderPass(
+      this.scene,
+      this.camera.instance
+    );
+
+    this.postProcess.UnrealBloomPass = new UnrealBloomPass(
+      new THREE.Vector2(this.sizes.width, this.sizes.height),
+      1.5,
+      0.4,
+      0.85
+    );
+    this.postProcess.UnrealBloomPass.threshold = 0.1;
+    this.postProcess.UnrealBloomPass.strength = 0.3;
+    this.postProcess.UnrealBloomPass.radius = 0.5;
 
     /**
      * Effect composer
@@ -49,8 +66,8 @@ export default class Renderer {
         generateMipmaps: false,
         minFilter: THREE.LinearFilter,
         magFilter: THREE.LinearFilter,
-        format: THREE.RGBFormat,
-        encoding: THREE.sRGBEncoding,
+        format: THREE.RGBAFormat,
+        colorSpace: THREE.SRGBColorSpace,
         samples: 2,
       }
     );
@@ -58,26 +75,11 @@ export default class Renderer {
       this.instance,
       this.renderTarget
     );
-    this.postProcess.composer.setSize(
-      this.postProcess.width,
-      this.postProcess.height
-    );
-    this.postProcess.composer.setPixelRatio(this.postProcess.pixelRatio);
+    this.postProcess.composer.setSize(this.config.width, this.config.height);
+    this.postProcess.composer.setPixelRatio(this.config.pixelRatio);
 
-    /**
-     * Render pass
-     */
-    this.postProcess.renderPass = new RenderPass(
-      this.scene,
-      this.camera.instance
-    );
     this.postProcess.composer.addPass(this.postProcess.renderPass);
-
-    /**
-     * Dot screen pass
-     */
-    this.postProcess.dotScreenPass = new DotScreenPass();
-    this.postProcess.composer.addPass(this.postProcess.dotScreenPass);
+    this.postProcess.composer.addPass(this.postProcess.UnrealBloomPass);
   }
 
   resize() {

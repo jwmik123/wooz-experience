@@ -27,9 +27,14 @@ export default [
     path: "assets/bakedFinal.jpg",
   },
   {
+    name: "bakedShirtsTexture",
+    type: "texture",
+    path: "assets/bakedShirts.jpg",
+  },
+  {
     name: "studioModel",
     type: "gltfModel",
-    path: "models/Studio/studio5Comp.gltf",
+    path: "models/Studio/studio7.gltf",
   },
   {
     name: "perlinTexture",

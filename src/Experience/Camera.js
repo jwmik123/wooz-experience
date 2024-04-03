@@ -75,8 +75,7 @@ export default class Camera {
     this.controls = new OrbitControls(this.instance, this.canvas);
     this.controls.enableDamping = true;
     this.controls.screenSpacePanning = true;
-
-    this.controls.zoomSpeed = 0.25;
+    this.controls.zoomSpeed = 1;
     this.controls.maxPolarAngle = Math.PI / 2 - 0.1;
   }
 

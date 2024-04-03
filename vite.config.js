@@ -5,6 +5,13 @@ export default {
   publicDir: "../static/",
   base: "./",
   server: {
+    proxy: {
+      "/api": {
+        target: "https://wooz.myshopify.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
     host: true, // Open to local network and display URL
     open: !("SANDBOX_URL" in process.env || "CODESANDBOX_HOST" in process.env), // Open if it's not a CodeSandbox
   },

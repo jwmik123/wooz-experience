@@ -39,32 +39,13 @@ export default class Studio {
       fragmentShader: fragmentShader,
     });
 
-    this.model.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.material = this.model.material;
-      }
-    });
+    this.model.children[0].material = this.model.material;
 
-    const lampholder = this.model.children.find(
-      (child) => child.name === "lamp1"
-    );
-    const lamps = this.model.children.find(
-      (child) => child.name === "emissionLamp"
-    );
-
-    lamps.material = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
-      emissive: 0xffffff,
-      emissiveIntensity: 1,
-    });
-
-    console.log(lampholder);
-    console.log(lamps);
+    console.log(this.model);
 
     this.model.scale.set(1, 1, 1);
     this.model.position.set(0, 0, 0);
     this.scene.add(this.model);
   }
-
   update() {}
 }

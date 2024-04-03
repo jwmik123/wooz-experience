@@ -10,7 +10,5 @@ varying vec2 vUv;
 void main()
 {
     vec3 bakedDayColor = texture2D(uBakedDayTexture, vUv).rgb;
-
-
     gl_FragColor = vec4(bakedDayColor, 1.0);
 }

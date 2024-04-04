@@ -45,7 +45,8 @@ export default class Camera {
       0.1,
       150
     );
-    this.instance.position.set(12, 5, 4);
+    // this.instance.position.set(12, 5, 4); BEFORE INTRO ANIMATION
+    this.instance.position.set(6, 1.2, 0);
 
     // window.addEventListener("click", () => {
     //   console.log(this.instance.position);
@@ -63,7 +64,7 @@ export default class Camera {
         y: 1.2,
         z: 0,
         ease: "power3.inOut",
-        duration: 2.5,
+        duration: 0,
         delay: 0,
       });
     });
@@ -75,7 +76,7 @@ export default class Camera {
     this.controls = new OrbitControls(this.instance, this.canvas);
     this.controls.enableDamping = true;
     this.controls.screenSpacePanning = true;
-    this.controls.zoomSpeed = 1;
+    this.controls.zoomSpeed = 0.25;
     this.controls.maxPolarAngle = Math.PI / 2 - 0.1;
   }
 

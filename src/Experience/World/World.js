@@ -18,7 +18,7 @@ export default class World {
       // Setup
       this.environment = new Environment();
       this.floor = new Floor();
-      // this.coffeeSmoke = new CoffeeSmoke();
+      this.coffeeSmoke = new CoffeeSmoke();
       this.studio = new Studio();
 
       // Sky Background

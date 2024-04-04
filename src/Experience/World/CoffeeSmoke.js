@@ -46,7 +46,7 @@ export default class CoffeeSmoke {
 
     this.mesh = new THREE.Mesh(this.geometry, this.material);
     this.mesh.rotation.y = Math.PI / 2;
-    this.mesh.position.set(1.08, 0.53, -0.058);
+    this.mesh.position.set(2, 0.83, 0.5);
     this.mesh.scale.set(0.05, 0.2, 0.05);
 
     this.scene.add(this.mesh);
